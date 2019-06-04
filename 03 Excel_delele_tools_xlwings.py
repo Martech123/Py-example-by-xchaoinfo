@@ -19,60 +19,43 @@ class CapacitorExcelEdit(object):
     def val_change(self, value):
         print(type(value))
         if ((value-int(value)) != 0):
-            if value > 1:
-                print("it's a float")
-                new_value = str(value).replace('.', 'P')
-                return  new_value
-            else:
-                print("it's a float")
-                new_value = str(value) + 'P'
-                return  new_value
+            print("it's a float")
+            new_value = str(value) + 'pF'
+            return  new_value
         else:
             if value < 1000:
-                new_value = str(int(value)) + 'P'
+                new_value = str(int(value)) + 'pF'
                 return new_value
             elif 1000 <= value < 1000000:
                 value = int(value)
                 if ((value % 1000) == 0):
                     value = value / 1000
-                    return (str(value) + 'N')
+                    return (str(value) + 'nF')
                 elif ((value % 100) == 0):
-                    value = value / 100
-                    value_list = list(str(value))
-                    value_list.insert(-1, 'N')
-                    value_str = "".join(value_list)
+                    value_str = str(value / 1000.0) + 'nF'
                     return value_str
                 elif ((value % 10) == 0):
-                    value = value / 10
-                    value_list = list(str(value))
-                    value_list.insert(-2, 'N')
-                    value_str = "".join(value_list)
+                    value_str = str(value / 1000.0) + 'nF'
                     return value_str
                 else:
                     value_list = list(str(value))
-                    value_list.append('P')
+                    value_list.append('pF')
                     value_str = "".join(value_list)
                     return value_str
             else:
                 value = int(value)
                 if ((value % 1000000) == 0):
                     value = value / 1000000
-                    return (str(value) + 'U')
+                    return (str(value) + 'uF')
                 elif ((value % 100000) == 0):
-                    value = value / 100000
-                    value_list = list(str(value))
-                    value_list.insert(-1, 'U')
-                    value_str = "".join(value_list)
+                    value_str = str(value / 1000000.0) + 'uF'
                     return value_str
                 elif ((value % 10000) == 0):
-                    value = value / 10000
-                    value_list = list(str(value))
-                    value_list.insert(-2, 'U')
-                    value_str = "".join(value_list)
+                    value_str = str(value / 1000000.0) + 'uF'
                     return value_str
                 else:
                     value_list = list(str(value))
-                    value_list.append('P')
+                    value_list.append('uF')
                     value_str = "".join(value_list)
                     return value_str
 
@@ -93,6 +76,7 @@ class CapacitorExcelEdit(object):
                 return
             else:
                 R.value = self.val_change(R.value)
+                print(R.value)
                 i = i + 1
                 print('i:%d'%i)
         sheet.autofit()
@@ -325,3 +309,4 @@ if __name__ == '__main__':
     #d.emptyrow_delete()
     #d.value_sort()
     d.value_tihuan()
+    #print(d.val_change(1100))
